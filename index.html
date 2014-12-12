@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>-->
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+        <script src="js/jquery-1.7.1.min.js"></script>
+        <style>
+            html, body,#map {
+                height: 95%;
+                margin-top: 0px;
+                padding: 0px
+            }
+        </style>
+        <script>
+            var awards;
+            var contracts;
+            var emptyAwards = ['', '', '', '', '', ''];
+            var emptyContracts = ['', '', '', '', '', '', '', ''];
+            var final = [];
+            var amount = 0;
+            var geoLoc = [];
+            var geoAdd = [];
+            var map;
+            $(document).ready(function() {
+                $.ajax({
+                    type: "GET",
+                    url: "awards.csv",
+                    dataType: "text",
+                    success: function(data) {
+                        awards = JSON.parse(processData(data));
+                        $.ajax({
+                            type: "GET",
+                            url: "contracts.csv",
+                            dataType: "text",
+                            success: function(data) {
+                                contracts = JSON.parse(processData(data));
+                                var matched = false;
+                                for (var i = 0; i < contracts.length; i++) {
+                                    matched = false;
+                                    for (var j = 0; j < awards.length; j++) {
+                                        var awardArray = new Array(awards[j]);
+                                        var contractArray = new Array(contracts[i]);
+                                        if (awardArray[0][0] === contractArray[0][0]) {
+                                            final.push(contractArray[0].concat(awardArray[0].slice(1, awardArray[0].length)));
+                                            if (contractArray[0][1] === "Closed") {
+                                                amount += parseInt(awardArray[0][5]);
+                                            }
+                                            matched = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!matched) {
+                                        final.push(contractArray[0].concat(emptyAwards));
+                                    }
+                                }
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "writetofile.php",
+                                    data: {result: JSON.stringify(final)},
+                                    dataType: 'json',
+                                    success: function(response) {
+                                        alert("Successfully Generated final.csv");
+//                                        document.write("Total Amount of closed contracts:" + amount.toString());
+                                        document.getElementById("textbox").innerHTML = "Total Amount of closed contracts: " + amount.toString();
+                                    },
+                                    error: function(response) {
+                                        alert("Error in generating final.csv");
+//                                        alert(response);
+                                    }
+                                });
+                                for (var i = 0; i < final.length; i++) {
+                                    if (final[i][11] !== "") {
+                                        GetLocation(final[i][11]);
+                                    }
+                                }
+                                google.maps.event.addDomListener(document.getElementById('btn'), 'click', initialize);
+//                                initialize();
+//                                alert(geoLoc);
+                            }
+                        });
+
+                    }
+                });
+            });
+
+            function processData(csv) {
+                var lines = csv.split("\n");
+
+                var result = [];
+
+                var headers = lines[0].split(",");
+
+                for (var i = 1; i < lines.length; i++) {
+
+                    var obj = {};
+                    var array = [];
+                    var currentline = lines[i].split(",");
+
+                    for (var j = 0; j < headers.length; j++) {
+                        obj[headers[j]] = currentline[j];
+                        array[j] = currentline[j];
+                    }
+
+                    result.push(array);
+
+                }
+
+                //return result; //JavaScript object
+                return JSON.stringify(result); //JSON
+            }
+
+            function GetLocation(address) {
+                var geocoder = new google.maps.Geocoder();
+//                var address = document.getElementById("txtAddress").value;
+                geocoder.geocode({'address': address}, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        var latitude = results[0].geometry.location.lat();
+                        var longitude = results[0].geometry.location.lng();
+                        geoLoc.push(new Array(latitude, longitude));
+                        geoAdd.push(address);
+//                        alert("Latitude: " + latitude + "\nLongitude: " + longitude);
+                    } else {
+                        alert("Request failed to acess Geo Location.")
+                    }
+                });
+            }
+
+            function initialize()
+            {
+                var mapOptions = {
+                    zoom: 8,
+                    center: new google.maps.LatLng(geoLoc[0][0], geoLoc[0][1])
+                };
+                map = new google.maps.Map(document.getElementById('map'),
+                        mapOptions);
+                
+//                alert("L"parseFloat(geoLoc[0][0]));
+                for (var i = 0; i < geoLoc.length; i++)
+                {
+//                    alert("Lat"+parseFloat(geoLoc[i][0]));
+//                    alert("Long"+parseFloat(geoLoc[i][1]));
+//                    alert(geoAdd[i]);
+                    var marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(parseFloat(geoLoc[i][0]),parseFloat(geoLoc[i][1])),
+                        map: map,
+                        title: geoAdd[i]
+                    });
+                }
+            }
+//            google.maps.event.addDomListener(window, 'load', initialize);
+
+        </script>
+    </head>
+    <body>
+        <div id="textbox"></div>
+        <div id="map"></div>
+        <button id="btn">Show Map</button>
+    </body>
+</html>
