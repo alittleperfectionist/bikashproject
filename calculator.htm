@@ -1,0 +1,215 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" 
+xmlns:o="urn:schemas-microsoft-com:office:office" 
+xmlns="http://www.w3.org/TR/REC-html40"><head>
+
+<body background="MONOGRAM 8 GR.jpg" bgcolor="#6699FF"> 
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; 
+charset=windows-1252">
+<title>DIP CALCULATOR</title>
+<script type="text/javascript">
+
+	function cal()
+	{
+		var DAV=document.getElementById("DAV");
+		var TP=document.getElementById("TP");
+		var BPP=document.getElementById("BPP");
+		var PDA=document.getElementById("PDA");
+		var COM=document.getElementById("COM");
+		var TPP=document.getElementById("TPP");
+		var TC=document.getElementById("TC");
+		var GRA=document.getElementById("GRA");
+		var LVE=document.getElementById("LVE");
+		var BP=document.getElementById("BP");
+		var GP=document.getElementById("GP");
+		var MSP=document.getElementById("MSP");
+		var XGP=document.getElementById("XGP");
+		var CLP=document.getElementById("CLP");
+		var DA=document.getElementById("DA");
+		var SERVICEYR=document.getElementById("SERVICEYR");
+		var leave=document.getElementById("leave");
+		var age=document.getElementById("age");
+		var TMoney=document.getElementById("TMoney");
+		
+
+		var arr=new Array(9.188,9.187,9.186,9.185,9.184,9.183,9.182,9.180,9.178,9.176,9.173,9.169,9.164,9.159,9.152,9.145,9.136,9.126,9.116,9.103,9.090,9.075,9.059,9.040,9.019,8.996,8.971,8.943,8.913,8.881,8.846,8.808,8.768,8.724,8.678,8.627,8.572,8.512,8.446,8.387,8.207,8.194,8.093,7.982,7.862,7.731,7.591,7.431,7.262,7.083,6.897,6.703,6.502,6.296,6.085,5.872,5.657,5.443,5.229,5.018,4.812,4.611);
+		
+
+		var totalBP=parseFloat(BP.value)+parseFloat(GP.value)+parseFloat(MSP.value)+parseFloat(XGP.value)+parseFloat(CLP.value);
+		DAV.value=(totalBP*parseFloat(DA.value)*0.01);
+		TP.value=totalBP+parseFloat(DAV.value);
+		BPP.value=totalBP*0.5;
+		PDA.value=parseFloat(BPP.value)*parseFloat(DA.value)*0.01;
+		COM.value=parseFloat(BPP.value)*0.5;
+		TPP.value=parseFloat(COM.value)+parseFloat(PDA.value);
+		GRA.value=Math.round(parseFloat(TP.value)*SERVICEYR.value*0.5);
+		LVE.value=Math.round((TP.value/30)*leave.value);
+		TC.value=Math.round(parseFloat(COM.value)*arr[age.value-20]*12);
+		TMoney.value=parseFloat(TC.value)+parseFloat(GRA.value)+parseFloat(LVE.value);
+	}
+
+
+
+
+</script>
+
+<!--mstheme--><link rel="stylesheet" 
+href="Pension%20Caluculator_files/ripp1011.css">
+
+<meta name="Microsoft Theme" content="ripple 1011">
+</head><body>
+
+<p>&nbsp;</p>
+<div style="position: absolute; width: 680px; height: 39px; z-index: 6; 
+left: 200px; top: 31px;" id="layer8">
+	<table id="table4" width="679" bgcolor="#800220" border="1">
+		<tbody><tr>
+			<td>
+			<p align="center"><u><font color="#00CCFF" face="Arial" size="6"><b> POKHARA ARMY PENSION CALCULATOR</b></font></u></p></td>
+		</tr>
+	</tbody></table>
+    <font color="#FF0000" size="+2"><marquee direction="left" > <img dynsrc="MONOGRAM 8 GR.jpg" > WELCOME TO POKHARA ARMY PENSION CALCULATOR CREATED BY DIPENDRA POKHAREL</marquee> </font>
+</div>
+<div style="position: absolute; width: 950px; height: 100px; z-index: 5;
+ left: 50px; top: 506px;" id="layer7">
+	<table id="table3" bordercolor="#0000FF" COLOR bgcolor="#CC6600" width="98%" border="1.5" height="60">
+		<tbody><tr>
+			<td width="400"><b>DA VALUE (ON BASIC PAY)</b></td>
+			<td>&nbsp;<font color="#ffffff" size="1">
+		<input name="DAV" id="DAV" size="18" style="font-weight: 700;" 
+readonly="readonly"></font></td>
+		</tr>
+		<tr>
+			<td width="460"><b>TOTAL PAY PER MONTH</b></td>
+			<td>&nbsp;<font color="#ffffff" size="1">
+		<input name="TP" id="TP" size="18" style="font-weight: 700;" 
+readonly="readonly"></font></td>
+		</tr>
+<tr>
+			<td width="460"><b>BASIC PENSION</b></td>
+			<td>&nbsp;<font color="#ffffff" size="1">
+		<input name="BPP" id="BPP" size="18" style="font-weight: 700;" 
+readonly="readonly"></font></td>
+		</tr>
+		<tr>
+			<td width="460"><b>DA ON BASIC PENSION </b> </td>
+			<td>&nbsp;<font color="#ffffff" size="1">
+		<input name="PDA" id="PDA" size="18" style="font-weight: 700;" 
+readonly="readonly"></font></td>
+		</tr>
+
+		<tr>
+			<td width="460"><b>COMMUTATION </b> </td>
+			<td>&nbsp;<font color="#ffffff" size="1">
+		<input name="COM" id="COM" size="18" style="font-weight: 700;" 
+readonly="readonly"></font></td>
+		</tr>
+
+
+
+		<tr color="#FF00FF"><td width="460">
+			<font color="#FFFF00" size="+2">TOTAL PENSION (PER MTH)</font></b></td>
+			<td>&nbsp;<font color="#ff00ff" size="1">
+		<input name="TPP" id="TPP" size="18" style="font-weight: 700;" 
+readonly="readonly"></font></td>
+		</tr>
+		<tr>
+			<td width="460"><b>TOTAL COMMUTATION</b></td>
+			<td>&nbsp;<font color="#ffffff" size="1">
+		<input name="TC" id="TC" size="18" style="font-weight: 700;" 
+readonly="readonly"></font></td>
+		</tr>
+
+<tr>
+			<td width="460"><b>GRATUITY</b></td>
+			<td>&nbsp;<font color="#ffffff" size="1">
+		<input name="GRA" id="GRA" size="18" style="font-weight: 700;" 
+readonly="readonly"></font></td>
+		</tr>
+			<tr>
+			<td width="460"><b>TOTAL LEAVE ENCASH</b></td>
+			<td>&nbsp;<font color="#ffffff" size="1">
+		<input name="LVE" id="LVE" size="18" style="font-weight: 700;" 
+readonly="readonly"></font></td>
+		</tr>
+
+
+<tr>
+			<td width="460" bgcolor="#ff0000"><b><font color="#ffff00" size="+2"> <marquee align="absmiddle" >TOTAL PENSION AMOUNT </marquee></font></b></td>
+			<td>&nbsp;<font color="#ffffff" size="1">
+		<input name="TMoney" id="TMoney" size="18" style="font-weight: 700;" 
+readonly="readonly"></font></td>
+		</tr>
+
+
+
+
+	</tbody></table>
+   <font color="#FF0000" size="+1"><marquee direction="left" > CREATED BY DIPENDRA POKHAREL</marquee> </font>
+</div>
+<div style="position: absolute; width: 800px; height: 100px; z-index: 5;
+ left: 50px; top: 126px;" id="layer6">
+	<table id="table2" width="117%" COLOR bgcolor="#FF6600" border="1" height="60">
+		<tbody><tr>
+			<td width="66%"><b>1.  CURRENT RUNNING /BASIC PAY</b></td>
+			<td width="31%">&nbsp;<font color="#ffffff" size="1">
+		<input name="BP" id="BP" size="18" value="0" style="font-weight: 700;"></font></td>
+		</tr>
+		<tr>
+			<td width="66%"><b> 2.  GRADE PAY (ACP TYPE)</b></td>
+			<td width="31%">&nbsp;<font color="#ffffff" size="1">
+		<input name="GP" id="GP" size="18" value="0" style="font-weight: 700;"></font></td>
+		</tr>
+<tr>
+			<td width="66%"><b> 3.  MILITARY SERVICE PAY</b></td>
+			<td width="31%">&nbsp;<font color="#ffffff" size="1">
+		<input name="MSP" id="MSP" size="18" value="0" style="font-weight: 
+700;"></font></td>
+		</tr>
+		<tr>
+			<td width="66%"><b> 4.  X GROUP PAY</b></td>
+			<td width="31%">&nbsp;<font color="#ffffff" size="1">
+		<input name="XGP" id="XGP" size="18" value="0" style="font-weight: 
+700;"></font></td>
+		</tr>
+
+		<tr>
+			<td width="66%"><b> 5.  CLASS PAY (FOR ORs ONLY)</b></td>
+			<td width="31%">&nbsp;<font color="#ffffff" size="1">
+		<input name="CLP" id="CLP" size="18" value="0" style="font-weight: 
+700;"></font></td>
+		</tr>
+		<tr>
+			<td width="66%"><b> 6.  CURRENT DA IN (%) </b> </td>
+			<td width="31%">&nbsp;<font color="#ffffff" size="1">
+		<input name="DA" id="DA" size="18" value="0" style="font-weight: 700;"></font></td>
+		</tr>
+		<tr>
+			<td width="66%"><b> 7.  TOTAL SERVICE (IN YEARS)</b></td>
+			<td width="31%">&nbsp;<font color="#ffffff" size="1">
+			<input name="SERVICEYR" id="SERVICEYR" size="18" value="0" 
+style="font-weight: 700;"></font></td>
+		</tr>
+		<tr>
+			<td width="66%"><b> 8.  TOTAL LEAVE ENCASHMENTS (IN DAYS) </b> </td>
+			<td width="31%">&nbsp;<font color="#ffffff" size="1">
+			<input name="leave" id="leave" size="18" value="0" 
+style="font-weight: 700;"></font></td>
+		</tr>
+		<tr>
+			<td width="66%"><b> 9. PRESENT AGE( DURING PENSION)</b></td>
+			<td width="31%">&nbsp;<font color="#ffffff" size="1">
+			<input name="age" id="age" size="18" value="0" style="font-weight: 
+700;"></font></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+			<input name="submit" id="submit" value="CLICK HERE FOR YOUR RESULT" onclick="cal();" 
+style="font-weight: bold; color: rgb(255, 0, 0);" type="button"></td>
+		</tr>
+			
+	</tbody></table>
+    
+</div>
+
+</body></html>
